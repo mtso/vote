@@ -1,4 +1,35 @@
 {
   "name": "vote",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "scripts": {
+    "start": "webpack && node ./build/server.js",
+    "dev": "webpack && torus run node ./build/server.js"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.17.2",
+    "connect-session-sequelize": "^4.1.0",
+    "cors": "^2.8.3",
+    "css-loader": "^0.28.1",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "isomorphic-style-loader": "^2.0.0",
+    "passport": "^0.3.2",
+    "passport-twitter": "^1.0.4",
+    "pg": "^6.2.2",
+    "pg-hstore": "^2.3.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
+    "sequelize": "^3.30.4",
+    "style-loader": "^0.17.0",
+    "superagent": "^3.5.2",
+    "webpack": "^2.5.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.4.5"
+  }
 }
