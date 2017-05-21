@@ -14,7 +14,7 @@ function renderFullPage(html, preloadedState) {
         <title>√ote</title>
       </head>
       <body>
-        <div id="root">${html}</div>
+        <div id="app">${html}</div>
         <script src="/bundle.js"></script>
       </body>
     </html>
