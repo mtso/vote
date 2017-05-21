@@ -9,7 +9,6 @@ const PollItem = (props) => (
       value={props.value}
       name='poll' 
       onChange={props.onChange}
-      onChange={props.onChange} 
     />
     <label htmlFor={props.value}>{props.value}</label>
   </ListStyle>
