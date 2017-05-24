@@ -21,7 +21,7 @@ class Poll extends Component {
     })
   }
   render() {
-    const items = this.props.items.map(
+    const choices = this.props.choices.map(
       (v, i) => (
         <PollItem key={i} value={v} onChange={this.onChange} />
       )
@@ -29,7 +29,7 @@ class Poll extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <ul>
-          {items}
+          {choices}
           <PollItemOther onChange={this.onChange} />
         </ul>
         <input type='submit' value='Vote' />
