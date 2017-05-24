@@ -1,25 +1,19 @@
 import React from 'react'
 import './App.css'
-import { default as request } from 'superagent'
+import { Link } from 'react-router-dom'
 
-const authenticateTwitter = () => {
-  request
-    .get('/auth/twitter')
-    .end((err, res) => {
-      console.log(err, res.body)
-    })
-}
-
-const App = (props) => (
+const App = ({ name }) => (
   <div>
     <h1 className='logo'>
-      √ote
-      <button
-        className='oauth-button'
-        onClick={authenticateTwitter}
-      >
-        Sign in with Twitter
-      </button>
+      √ote {
+        name
+          ? <span>Welcome back, {name}</span>
+          : <a
+              href='/auth/twitter'
+            >
+              Sign in with Twitter la~
+            </a>
+      }
     </h1>
   </div>
 )

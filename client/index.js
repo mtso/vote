@@ -3,15 +3,17 @@ import { render } from 'react-dom'
 import App from '../app'
 import { BrowserRouter } from 'react-router-dom'
 
-// const initialState = JSON.stringify(
-//   window.__INITIAL_STATE__ || '{}'
-// )
+const initialState = window.__INITIAL_STATE__
+  ? JSON.stringify( window.__INITIAL_STATE__ ) 
+  : null
+
+console.log(initialState)
 
 render(
   <BrowserRouter>
-    <App names={
-      ['hello', 'foo', 'bar']
-    }/>
+    <App
+      name={initialState}
+    />
   </BrowserRouter>,
   document.querySelector('#app')
 )

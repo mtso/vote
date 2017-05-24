@@ -15,6 +15,15 @@ function renderFullPage(html, preloadedState) {
       </head>
       <body>
         <div id="app">${html}</div>
+        <script>
+          // WARNING: See the following for security issues around embedding JSON in HTML:
+          // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
+          window.__INITIAL_STATE__ = ${preloadedState 
+            ? JSON.stringify(preloadedState).replace(/</g, '\\u003c')
+            : null
+          }
+          console.log('new here~')
+        </script>
         <script src="/bundle.js"></script>
       </body>
     </html>
