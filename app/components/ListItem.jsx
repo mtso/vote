@@ -7,3 +7,5 @@ const ListItem = (props) => (
     {props.children}
   </li>
 )
+
+export default ListItem

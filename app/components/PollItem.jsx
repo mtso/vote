@@ -2,7 +2,7 @@ import React from 'react'
 import ListItem from './ListItem'
 
 const PollItem = (props) => (
-  <ListStyle>
+  <ListItem>
     <input
       type='radio'
       id={props.value}
@@ -11,7 +11,7 @@ const PollItem = (props) => (
       onChange={props.onChange}
     />
     <label htmlFor={props.value}>{props.value}</label>
-  </ListStyle>
+  </ListItem>
 )
 
 export default PollItem

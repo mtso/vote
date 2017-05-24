@@ -22,7 +22,6 @@ function renderFullPage(html, preloadedState) {
             ? JSON.stringify(preloadedState).replace(/</g, '\\u003c')
             : null
           }
-          console.log('new here~')
         </script>
         <script src="/bundle.js"></script>
       </body>

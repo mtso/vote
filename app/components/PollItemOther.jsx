@@ -25,12 +25,12 @@ class PollItemOther extends Component {
   }
   render() {
     return (
-      <ListStyle>
+      <ListItem>
         <input type='radio' id='other' name='poll' onChange={this.handleChange} />
         <label htmlFor='other'>
           <input type='text' placeholder='Other' onChange={this.updateValue} />
         </label>
-      </ListStyle>
+      </ListItem>
     )
   }
 }
