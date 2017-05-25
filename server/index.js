@@ -4,6 +4,9 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import session from 'express-session'
 import passport from './auth'
+const models = require('./models')
+const pollController = require('./controllers/poll')
+const ensureAuthenticated = require('./util/ensureAuthenticated')
 
 import React from 'react'
 import { renderToString } from 'react-dom/server'
@@ -35,6 +38,9 @@ app.get('/auth/twitter/callback',
 app.get('/auth/twitter',
   passport.authenticate('twitter')
 )
+
+app.post('/api/poll', ensureAuthenticated, pollController.postPoll)
+app.get('/api/poll', pollController.getPoll)
 
 app.get('/*', (req, res) => {
   const context = {}
@@ -82,4 +88,9 @@ app.get('/*', (req, res) => {
   }
 })
 
-app.listen(port, () => console.log('listening on', port))
+models.sequelize
+  .sync()
+  .then(() => {
+    app.listen(port, () => console.log('listening on', port))
+  })
+  .catch((err) => console.log(err))
