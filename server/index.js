@@ -45,47 +45,70 @@ app.get('/api/poll', pollController.getPoll)
 app.get('/*', (req, res) => {
   const context = {}
 
-  let state = {}
+  const state = {}
   if (req.user) {
     state.username = req.user.username
   }
-  state.polls = [
-    {
-      isChosen: false,
-      title: 'Who is your favorite captain?',
-      choices: [
-        'Piccard',
-        'Clark',
-      ],
-    },
-    {
-      isChosen: false,
-      title: 'What is your favorite ice cream flavor?',
-      choices: [
-        'Vanilla',
-        'Chocolate',
-        'Green Tea',
-      ],
-    },
-  ]
 
-  console.log(req.user)
+  const renderResult = (polls) => {
+    polls = polls.map((poll) => {
+      poll = poll.get({
+        plain: true,
+      })
+      poll.isChosen = false
+      poll.choices = poll.Choices.map((choice) => choice.text)
+      return poll
+    })
 
-  const markup = renderToString(
-    <StaticRouter
-      location={req.url}
-      context={context}
-    >
-      <App state={state} />
-    </StaticRouter>
-  )
+    console.log(polls)
 
-  if (context.url) {
-    res.redirect(302, context.url)
-    res.end()
-  } else {
-    res.send(renderFullPage(markup, state))
+    state.polls = polls
+    // [
+    //     {
+    //       isChosen: false,
+    //       title: 'Who is your favorite captain?',
+    //       choices: [
+    //         'Piccard',
+    //         'Clark',
+    //       ],
+    //     },
+    //     {
+    //       isChosen: false,
+    //       title: 'What is your favorite ice cream flavor?',
+    //       choices: [
+    //         'Vanilla',
+    //         'Chocolate',
+    //         'Green Tea',
+    //       ],
+    //     },
+    //   ]
+    
+    const markup = renderToString(
+      <StaticRouter
+        location={req.url}
+        context={context}
+      >
+        <App state={state} />
+      </StaticRouter>
+    )
+
+    if (context.url) {
+      res.redirect(302, context.url)
+      res.end()
+    } else {
+      res.send(renderFullPage(markup, state))
+    }
   }
+
+  models.Poll
+    .findAll({
+      offset: 0,
+      limit: 10,
+      order: [ [ 'id', 'DESC' ] ],
+      include: [ models.Choice ],
+    })
+    .then(renderResult)
+    .catch((err) => console.error(err))
 })
 
 models.sequelize
