@@ -13,6 +13,10 @@ class Poll extends Component {
   }
   onSubmit(e) {
     e.preventDefault()
+    if (!!this.state.vote) {
+      this.props.onSubmit(this.state.vote)
+    }
+    
     console.log('SUBMIT', this.state.vote)
   }
   onChange(e) {
