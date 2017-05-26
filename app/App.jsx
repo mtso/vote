@@ -2,20 +2,11 @@ import React from 'react'
 import './App.css'
 import { Link } from 'react-router-dom'
 import Poll from './components/Poll'
+import Header from './components/Header'
 
 const App = ({ state }) => (
   <div>
-    <h1 className='logo'>
-      √ote {
-        state.username
-          ? <span>Welcome back, {state.username}</span>
-          : <a
-              href='/auth/twitter'
-            >
-              Sign in with Twitter
-            </a>
-      }
-    </h1>
+    <Header username={state.username} />
     {
       state.polls && state.polls.map(
         (poll) => (
