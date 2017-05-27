@@ -6,6 +6,7 @@ import session from 'express-session'
 import passport from './auth'
 const models = require('./models')
 const pollController = require('./controllers/poll')
+const choiceController = require('./controllers/choice')
 const ensureAuthenticated = require('./util/ensureAuthenticated')
 
 import React from 'react'
@@ -13,6 +14,7 @@ import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import renderFullPage from './util/renderFullPage'
 import App from '../app'
+import buildDataset from './util/buildDataset'
 
 const app = Express()
 const port = process.env.PORT || 3750
@@ -41,6 +43,7 @@ app.get('/auth/twitter',
 
 app.post('/api/poll', ensureAuthenticated, pollController.postPoll)
 app.get('/api/poll', pollController.getPoll)
+app.post('/api/choice/:pollId', choiceController.postChoice)
 
 app.get('/*', (req, res) => {
   const context = {}
@@ -48,41 +51,16 @@ app.get('/*', (req, res) => {
   const state = {}
   if (req.user) {
     state.username = req.user.username
+  } else {
+    state.ip = req.ip
   }
 
   const renderResult = (polls) => {
-    polls = polls.map((poll) => {
-      poll = poll.get({
-        plain: true,
-      })
-      poll.isChosen = false
-      poll.choices = poll.Choices.map((choice) => choice.text)
-      return poll
-    })
-
+    polls = polls.map( buildDataset(req) )
     console.log(polls)
 
     state.polls = polls
-    // [
-    //     {
-    //       isChosen: false,
-    //       title: 'Who is your favorite captain?',
-    //       choices: [
-    //         'Piccard',
-    //         'Clark',
-    //       ],
-    //     },
-    //     {
-    //       isChosen: false,
-    //       title: 'What is your favorite ice cream flavor?',
-    //       choices: [
-    //         'Vanilla',
-    //         'Chocolate',
-    //         'Green Tea',
-    //       ],
-    //     },
-    //   ]
-    
+
     const markup = renderToString(
       <StaticRouter
         location={req.url}
@@ -112,7 +90,7 @@ app.get('/*', (req, res) => {
 })
 
 models.sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     app.listen(port, () => console.log('listening on', port))
   })

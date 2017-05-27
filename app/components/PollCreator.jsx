@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class List extends Component {
+class PollCreator extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -108,3 +108,5 @@ class List extends Component {
     )
   }
 }
+
+export default PollCreator

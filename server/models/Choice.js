@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     text: DataTypes.STRING,
   }, {
     timestamps: false,
+    classMethods: {
+      associate: (models) => Choice.belongsTo(models.Poll),
+    },
   })
 
   return Choice
