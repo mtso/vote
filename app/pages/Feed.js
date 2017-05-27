@@ -1,6 +1,8 @@
+import path from 'path'
 import React, { Component } from 'react'
-import Poll from '../components/Poll'
 import { default as request } from 'superagent'
+import Poll from '../components/Poll'
+import Donut from '../components/Donut'
 
 class Feed extends Component {
   constructor(props) {
@@ -9,29 +11,39 @@ class Feed extends Component {
 
   }
   submitPoll(choice) {
-    // if (props.user) {
-    //   request
-    //     .post('/poll')
-    // }
+    const url = path.join('/api/choice', '' + choice.pollId)
+    request
+      .post(url)
+      .send(choice)
+      .end((err, resp) => {
+        if (resp.body.success) {
+          console.log(success)
+        }
+        console.log(resp.body)
+      })
   }
   render() {
     return (
       <div>
         {
-          polls.map((poll) => {
-            // if (poll.isChosen) {
-
-            // }
-            <div>
-              <h2>{poll.title}</h2>
-              <Poll
-                choices={poll.choices}
-                onSubmit={this.submitPoll}
-              />
-            </div>
+          this.props.polls.map((poll, i) => {
+            if (poll.isChosen) {
+              return (
+                <div key={poll.title + i}>
+                  <Donut {...poll} />
+                </div>
+              )
+            }
+            return (
+              <div key={poll.title + i}>
+                <Poll onSubmit={this.submitPoll} {...poll} />
+              </div>
+            )
           })
         }
       </div>
     )
   }
 }
+
+export default Feed

@@ -15,6 +15,7 @@ function renderFullPage(html, preloadedState) {
       </head>
       <body>
         <div id="app">${html}</div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
         <script>
           // WARNING: See the following for security issues around embedding JSON in HTML:
           // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations

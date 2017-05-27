@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { default as request } from 'superagent'
 import PollItem from './PollItem'
 import PollItemOther from './PollItemOther'
 
@@ -14,10 +15,13 @@ class Poll extends Component {
   onSubmit(e) {
     e.preventDefault()
     if (!!this.state.vote) {
-      this.props.onSubmit(this.state.vote)
+      const choice = {
+        text: this.state.vote,
+        pollId: this.props.id, 
+      }
+
+      this.props.onSubmit(choice)
     }
-    
-    console.log('SUBMIT', this.state.vote)
   }
   onChange(e) {
     this.setState({
@@ -32,6 +36,7 @@ class Poll extends Component {
     )
     return (
       <form onSubmit={this.onSubmit}>
+        <h2>{this.props.title}</h2>
         <ul>
           {choices}
           <PollItemOther onChange={this.onChange} />

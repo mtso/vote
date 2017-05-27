@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
-const Header = ({ username }) => (
+const Header = ({ username, children }) => (
   <div>
     <h1 className='logo'>√ote</h1> 
     {
@@ -13,6 +13,7 @@ const Header = ({ username }) => (
             Sign in with Twitter
           </a>
     }
+    { children }
   </div>
 )
 

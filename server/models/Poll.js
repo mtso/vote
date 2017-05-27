@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
   }, {
     timestamps: false,
+    classMethods: {
+      associate: (models) => Poll.hasMany(models.Choice),
+    },
   })
 
   return Poll

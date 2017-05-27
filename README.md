@@ -28,3 +28,7 @@ PollItem:
 questionId
 text
 
+
+complete index loading
+complete Poll choosing
+complete poll creator
