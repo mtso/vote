@@ -90,7 +90,7 @@ app.get('/*', (req, res) => {
 })
 
 models.sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     app.listen(port, () => console.log('listening on', port))
   })
