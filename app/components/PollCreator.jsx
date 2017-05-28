@@ -26,14 +26,9 @@ class PollCreator extends Component {
         acc[item] = acc[item] + 1 || 1
         return acc
       }, {})
-    console.log({
+    this.props.onSubmit({
       title: this.state.title,
       choices: Object.keys(choices),
-    })
-    this.setState({
-      title: '',
-      items: [],
-      newKey: this.state.newKey + 1,
     })
   }
   handleBlur(e) {

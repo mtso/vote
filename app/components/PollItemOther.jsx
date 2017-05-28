@@ -26,8 +26,8 @@ class PollItemOther extends Component {
   render() {
     return (
       <ListItem>
-        <input type='radio' id='other' name='poll' onChange={this.handleChange} />
-        <label htmlFor='other'>
+        <input type='radio' id={'other' + this.props.pollId} name='poll' onChange={this.handleChange} />
+        <label htmlFor={'other' + this.props.pollId}>
           <input type='text' placeholder='Other' onChange={this.updateValue} />
         </label>
       </ListItem>
