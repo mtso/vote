@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { default as request } from 'superagent'
 import PollItem from './PollItem'
 import PollItemOther from './PollItemOther'
+import TwitterLink from './TwitterLink'
+import account from '../utils/account'
 
 class Poll extends Component {
   constructor(props) {
@@ -40,9 +42,15 @@ class Poll extends Component {
         <h2>
           <Link to={'/poll/' + this.props.id}>{this.props.title}</Link>
         </h2>
+        <TwitterLink
+          id={this.props.id}
+          title={this.props.title}
+        />
         <ul>
           {choices}
-          <PollItemOther pollId={this.props.id} onChange={this.onChange} />
+          { account.isLoggedIn && 
+            <PollItemOther pollId={this.props.id} onChange={this.onChange} />
+          }
         </ul>
         <input type='submit' value='Vote' />
       </form>

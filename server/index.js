@@ -1,7 +1,6 @@
 import path from 'path'
 import Express from 'express'
 import bodyParser from 'body-parser'
-import cors from 'cors'
 import session from 'express-session'
 import passport from './auth'
 import appController from './controllers/app'
@@ -29,8 +28,10 @@ app.get('/auth/twitter/callback', passportTwitterController.callback(passport))
 app.get('/auth/twitter', passport.authenticate('twitter'))
 
 app.post('/api/poll', ensureAuthenticated, pollController.postPoll)
+app.delete('/api/poll/:id', ensureAuthenticated, pollController.deletePoll)
 app.get('/api/poll/:pollId', pollController.getPoll)
 app.get('/api/polls', pollController.getPolls)
+app.get('/api/mypolls', ensureAuthenticated, pollController.getMyPolls)
 app.post('/api/choice/:pollId', choiceController.postChoice)
 
 app.get('/*', appController)

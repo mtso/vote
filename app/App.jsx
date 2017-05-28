@@ -6,13 +6,19 @@ import Header from './components/Header'
 import Feed from './pages/Feed'
 import PollCreatorContainer from './pages/PollCreatorContainer'
 import PollContainer from './pages/PollContainer'
+import MyPollsContainer from './pages/MyPollsContainer'
 import pollQueue from './utils/pollQueue'
+import account from './utils/account'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = Object.assign({}, props.state)
     this.handleVoteResponse = this.handleVoteResponse.bind(this)
+    account.initialize({
+      username: props.state.username, 
+      ip: props.state.ip,
+    })
   }
   componentDidUpdate() {
     let newPoll = pollQueue.pop()
@@ -59,6 +65,7 @@ class App extends Component {
           )
         } />
         <Route path='/poll/:id' component={PollContainer} />
+        <Route path='/mypolls' component={MyPollsContainer} />
       </Header>
     )
   }

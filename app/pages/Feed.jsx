@@ -1,13 +1,12 @@
 import path from 'path'
 import React, { Component } from 'react'
 import { default as request } from 'superagent'
-import Poll from '../components/Poll'
-import Donut from '../components/Donut'
 import PollCell from '../components/PollCell'
 
 class Feed extends Component {
   constructor(props) {
     super(props)
+    this.submitPoll = this.submitPoll.bind(this)
   }
   submitPoll(index, pollId) {
     return (choice) => {
