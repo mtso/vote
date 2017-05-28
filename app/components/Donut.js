@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { default as Chart } from 'chart.js'
 import hashColor from '../utils/hashColor'
 
 class Donut extends Component {
@@ -17,10 +16,11 @@ class Donut extends Component {
     )
     
     this._chart = new Chart(this.context, {
-        type: 'doughnut',
-        data: this.props.data,
+      type: 'doughnut',
+      data: this.props.data,
       options: {
         cutoutPercentage: 80,
+        animation: false,
       },
     });
   }

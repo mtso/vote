@@ -39,7 +39,7 @@ class Poll extends Component {
         <h2>{this.props.title}</h2>
         <ul>
           {choices}
-          <PollItemOther onChange={this.onChange} />
+          <PollItemOther pollId={this.props.id} onChange={this.onChange} />
         </ul>
         <input type='submit' value='Vote' />
       </form>

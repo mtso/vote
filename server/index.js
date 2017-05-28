@@ -58,7 +58,6 @@ app.get('/*', (req, res) => {
 
   const renderResult = (polls) => {
     polls = polls.map( renderPollData(req) )
-    console.log(polls)
 
     state.polls = polls
 

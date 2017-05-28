@@ -7,23 +7,24 @@ import Donut from '../components/Donut'
 class Feed extends Component {
   constructor(props) {
     super(props)
-
-
   }
-  submitPoll(choice) {
-    const url = path.join('/api/choice', '' + choice.pollId)
-    request
-      .post(url)
-      .send(choice)
-      .end((err, resp) => {
-        if (err) {
-          return console.error(err)
-        }
-        if (resp.body.success) {
-          console.log(success)
-        }
-        console.log(resp.body)
-      })
+  submitPoll(index, pollId) {
+    return (choice) => {
+      const url = path.join('/api/choice', '' + choice.pollId)
+      request
+        .post(url)
+        .send(choice)
+        .end((err, resp) => {
+          if (err) {
+            return console.error(err)
+          }
+          this.props.handleVoteResponse(index, pollId)
+          // if (resp.body.success) {
+          //   console.log(resp.body.success)
+          // }
+          // console.log(resp.body)
+        })
+    }
   }
   render() {
     return (
@@ -39,7 +40,7 @@ class Feed extends Component {
             }
             return (
               <div key={poll.title + i}>
-                <Poll onSubmit={this.submitPoll} {...poll} />
+                <Poll onSubmit={this.submitPoll(i, poll.id)} {...poll} />
               </div>
             )
           })

@@ -38,7 +38,9 @@ module.exports.postPoll = (req, res, next) => {
 
 module.exports.getPoll = (req, res, next) => {
   Poll.findById(req.params.pollId, { include: [ Choice ] })
-    .then((poll) => res.json(poll))
+    .then((poll) => 
+      res.json( renderPollData(req)(poll) )
+    )
     .catch((err) => next(err))
 }
 

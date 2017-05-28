@@ -2,12 +2,12 @@ const buildDataset = (choices) => {
   const count = choices
     .reduce((acc, choice) => {
       if (choice.chosenBy) {
-        acc[choice.text] = acc[choice] + 1 || 1
+        acc[choice.text] = acc[choice.text] + 1 || 1
       }
       return acc
     }, {})
 
-  const labels = Object.keys(bucket)
+  const labels = Object.keys(count)
 
   return {
     datasets: [ 
@@ -32,10 +32,10 @@ const renderPollData = (req) => (poll) => {
     .some((u) => {
       if (u) {
         return (req.user && u === req.user.username) 
-          || u === req.ip
+          || (!req.user && u === req.ip)
       }
     })
-    
+
   if (poll.isChosen) {
     poll.data = buildDataset(Choices)
   } else {

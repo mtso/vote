@@ -12,6 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = Object.assign({}, props.state)
+    this.handleVoteResponse = this.handleVoteResponse.bind(this)
   }
   componentDidUpdate() {
     pollQueue.log()
@@ -23,12 +24,38 @@ class App extends Component {
       this.setState(newState)
     }
   }
+  handleChoiceResponse(index, pollId) {
+    this.setState({
+      polls: this.state.polls.map()
+    })
+  }
+  handleVoteResponse(index, pollId) {
+    request
+      .get('/api/poll/' + pollId)
+      .end((err, resp) => {
+        if (err) {
+          return console.error(err)
+        }
+        this.setState({
+          polls: this.state.polls.map((p, i) => {
+            if (i === index) {
+              return resp.body
+            }
+            return p
+          })
+        })
+      })
+  }
   render() {
     return (
       <Header username={this.state.username}>
-        <button onClick={pollQueue.log}>print queue</button>
         <Route exact path='/' component={
-          () => <Feed polls={this.state.polls} />
+          () => (
+            <Feed
+              polls={this.state.polls}
+              handleVoteResponse={this.handleVoteResponse}
+            />
+          )
         } />
         <Route exact path='/new' component={
           () => (
