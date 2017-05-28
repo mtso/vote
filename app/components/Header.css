@@ -3,7 +3,7 @@
   font-weight: normal;
 }
 
-.oauth-button {
+.calm-button {
   vertical-align: middle;
   margin-left: 2em;
   height: 2.4em;
@@ -19,11 +19,11 @@
   text-decoration: none;
 }
 
-.oauth-button:hover {
+.calm-button:hover {
   color: gray;
 }
 
-.oauth-button:active {
+.calm-button:active {
   color: gray;
   margin-bottom: 0px;
   box-shadow: 0px 0px lightgray;

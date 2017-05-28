@@ -8,13 +8,19 @@ const Header = ({ username, children }) => (
       <Link to='/' className='logo'>√ote</Link>
       {
         username
-          ? <Link 
-              to='/new'
-              className='oauth-button' 
-            >Create Poll</Link>
+          ? <span>
+              <Link 
+                to='/new'
+                className='calm-button' 
+              >Create Poll</Link>
+              <Link
+                to='/mypolls'
+                className='calm-button'
+              >My Polls</Link>
+            </span>
           : <a
               href='/auth/twitter'
-              className='oauth-button' 
+              className='calm-button' 
             >
               Sign in with Twitter
             </a>
