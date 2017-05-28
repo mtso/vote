@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { default as request } from 'superagent'
 import Poll from '../components/Poll'
 import Donut from '../components/Donut'
+import PollCell from '../components/PollCell'
 
 class Feed extends Component {
   constructor(props) {
@@ -19,10 +20,6 @@ class Feed extends Component {
             return console.error(err)
           }
           this.props.handleVoteResponse(index, pollId)
-          // if (resp.body.success) {
-          //   console.log(resp.body.success)
-          // }
-          // console.log(resp.body)
         })
     }
   }
@@ -30,20 +27,13 @@ class Feed extends Component {
     return (
       <div>
         {
-          this.props.polls.map((poll, i) => {
-            if (poll.isChosen) {
-              return (
-                <div key={poll.title + i}>
-                  <Donut {...poll} />
-                </div>
-              )
-            }
-            return (
-              <div key={poll.title + i}>
-                <Poll onSubmit={this.submitPoll(i, poll.id)} {...poll} />
-              </div>
-            )
-          })
+          this.props.polls.map((poll, i) => (
+            <PollCell
+              key={poll.title + i}
+              onSubmit={this.submitPoll(i, poll.id)}
+              {...poll}
+            />
+          ))
         }
       </div>
     )

@@ -1,18 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import './Header.css'
 
 const Header = ({ username, children }) => (
   <div>
-    <h1 className='logo'>√ote</h1> 
+    <h1 className='logo'>√ote
     {
       username
-        ? <Link to='/new'>Create Poll</Link>
+        ? <Link 
+            to='/new'
+            className='oauth-button' 
+          >Create Poll</Link>
         : <a
             href='/auth/twitter'
+            className='oauth-button' 
           >
             Sign in with Twitter
           </a>
     }
+    </h1>
     { children }
   </div>
 )

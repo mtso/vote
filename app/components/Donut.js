@@ -20,7 +20,6 @@ class Donut extends Component {
       data: this.props.data,
       options: {
         cutoutPercentage: 80,
-        animation: false,
       },
     });
   }

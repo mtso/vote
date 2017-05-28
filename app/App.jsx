@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { default as request } from 'superagent'
-import './App.css'
 import { Route, Link } from 'react-router-dom'
 import Poll from './components/Poll'
 import Header from './components/Header'
 import Feed from './pages/Feed'
 import PollCreatorContainer from './pages/PollCreatorContainer'
+import PollContainer from './pages/PollContainer'
 import pollQueue from './utils/pollQueue'
 
 class App extends Component {
@@ -15,7 +15,6 @@ class App extends Component {
     this.handleVoteResponse = this.handleVoteResponse.bind(this)
   }
   componentDidUpdate() {
-    pollQueue.log()
     let newPoll = pollQueue.pop()
     if (newPoll) {
       let newState = Object.assign({}, this.state, {
@@ -23,11 +22,6 @@ class App extends Component {
       })
       this.setState(newState)
     }
-  }
-  handleChoiceResponse(index, pollId) {
-    this.setState({
-      polls: this.state.polls.map()
-    })
   }
   handleVoteResponse(index, pollId) {
     request
@@ -49,7 +43,7 @@ class App extends Component {
   render() {
     return (
       <Header username={this.state.username}>
-        <Route exact path='/' component={
+        <Route exact path='/' render={
           () => (
             <Feed
               polls={this.state.polls}
@@ -57,13 +51,14 @@ class App extends Component {
             />
           )
         } />
-        <Route exact path='/new' component={
+        <Route path='/new' component={
           () => (
             <PollCreatorContainer
               {...this.state} 
             />
           )
         } />
+        <Route path='/poll/:id' component={PollContainer} />
       </Header>
     )
   }
