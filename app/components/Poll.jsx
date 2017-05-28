@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { default as request } from 'superagent'
 import PollItem from './PollItem'
 import PollItemOther from './PollItemOther'
@@ -36,7 +37,9 @@ class Poll extends Component {
     )
     return (
       <form onSubmit={this.onSubmit}>
-        <h2>{this.props.title}</h2>
+        <h2>
+          <Link to={'/poll/' + this.props.id}>{this.props.title}</Link>
+        </h2>
         <ul>
           {choices}
           <PollItemOther pollId={this.props.id} onChange={this.onChange} />

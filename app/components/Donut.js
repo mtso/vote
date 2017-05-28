@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import hashColor from '../utils/hashColor'
 
 class Donut extends Component {
@@ -26,7 +27,9 @@ class Donut extends Component {
   render() {
     return (
       <div>
-        <h2>{this.props.title}</h2>
+        <h2>
+          <Link to={'/poll/' + this.props.id}>{this.props.title}</Link>
+        </h2>
         <canvas
           ref={(canvas) => {
             this.context = canvas && canvas.getContext('2d')
