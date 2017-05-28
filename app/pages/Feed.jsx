@@ -6,6 +6,7 @@ import PollCell from '../components/PollCell'
 class Feed extends Component {
   constructor(props) {
     super(props)
+    this.submitPoll = this.submitPoll.bind(this)
   }
   submitPoll(index, pollId) {
     return (choice) => {
