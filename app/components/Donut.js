@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { default as request } from 'superagent'
 import { Link } from 'react-router-dom'
+import TwitterLink from './TwitterLink'
 import hashColor from '../utils/hashColor'
 
 class Donut extends Component {
@@ -49,6 +50,10 @@ class Donut extends Component {
             <button onClick={this.handleDelete}>Delete</button> 
           }
         </h2>
+        <TwitterLink
+          id={this.props.id}
+          title={this.props.title}
+        />
         <canvas
           ref={(canvas) => {
             this.context = canvas && canvas.getContext('2d')
