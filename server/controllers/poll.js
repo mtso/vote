@@ -1,6 +1,6 @@
 const Poll = require('../models').Poll
 const Choice = require('../models').Choice
-import renderPollData from '../util/renderPollData'
+import renderPollData from '../utils/renderPollData'
 
 module.exports.postPoll = (req, res, next) => {
   const title = req.body.title
@@ -10,13 +10,13 @@ module.exports.postPoll = (req, res, next) => {
     createdBy: req.user.username,
     title,
   })
-  .then((poll) => {
+  .then((pollModel) => {
 
     let initialChoices = choices.map((choice) => {
       return {
         chosenBy: null,
         text: choice,
-        PollId: poll.id,
+        PollId: pollModel.id,
       }
     })
     Choice.bulkCreate(
@@ -27,7 +27,11 @@ module.exports.postPoll = (req, res, next) => {
       .then(() => {
         res.json({
           success: true,
-          poll: req.body,
+          poll: Object.assign(
+            {},
+            req.body,
+            {id: pollModel.id},
+          )
         })
       })
       .catch((err) => next(err))
