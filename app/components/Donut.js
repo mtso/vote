@@ -7,7 +7,7 @@ class Donut extends Component {
     super(props)
   }
   componentDidMount() {
-    if (typeof window === 'undefined' || !this.context) {
+    if (typeof window === 'undefined' || !this.context || !this.props.data) {
       return
     }
 

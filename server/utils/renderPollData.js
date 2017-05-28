@@ -1,4 +1,4 @@
-const buildDataset = (choices) => {
+export const buildDataset = (choices) => {
   const count = choices
     .reduce((acc, choice) => {
       if (choice.chosenBy) {

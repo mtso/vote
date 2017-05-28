@@ -17,9 +17,9 @@ const renderApp = (req, res) => {
   }
 
   const renderResult = (polls) => {
-    polls = polls.map( renderPollData(req) )
-
-    state.polls = polls
+    state.polls = polls.map( 
+      renderPollData(req) 
+    )
 
     const markup = renderToString(
       <StaticRouter

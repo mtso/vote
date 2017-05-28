@@ -1,8 +1,6 @@
 import path from 'path'
 import React, { Component } from 'react'
 import { default as request } from 'superagent'
-import Poll from '../components/Poll'
-import Donut from '../components/Donut'
 import PollCell from '../components/PollCell'
 
 class Feed extends Component {

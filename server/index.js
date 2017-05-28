@@ -31,6 +31,7 @@ app.get('/auth/twitter', passport.authenticate('twitter'))
 app.post('/api/poll', ensureAuthenticated, pollController.postPoll)
 app.get('/api/poll/:pollId', pollController.getPoll)
 app.get('/api/polls', pollController.getPolls)
+app.get('/api/mypolls', ensureAuthenticated, pollController.getMyPolls)
 app.post('/api/choice/:pollId', choiceController.postChoice)
 
 app.get('/*', appController)
