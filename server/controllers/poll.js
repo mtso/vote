@@ -1,5 +1,6 @@
 const Poll = require('../models').Poll
 const Choice = require('../models').Choice
+import renderPollData from '../util/renderPollData'
 
 module.exports.postPoll = (req, res, next) => {
   const title = req.body.title
@@ -26,6 +27,7 @@ module.exports.postPoll = (req, res, next) => {
       .then(() => {
         res.json({
           success: true,
+          poll: req.body,
         })
       })
       .catch((err) => next(err))
@@ -35,7 +37,25 @@ module.exports.postPoll = (req, res, next) => {
 }
 
 module.exports.getPoll = (req, res, next) => {
-  Poll.findById(req.query.id, { include: [ Choice ] })
+  Poll.findById(req.params.pollId, { include: [ Choice ] })
     .then((poll) => res.json(poll))
     .catch((err) => next(err))
+}
+
+module.exports.getPolls = (req, res, next) => {
+  const renderResult = (polls) => {
+    polls = polls.map( renderPollData(req) )
+    
+    res.json(polls)
+  }
+
+  Poll
+    .findAll({
+      offset: 0,
+      limit: 10,
+      order: [ [ 'id', 'DESC' ] ],
+      include: [ Choice ],
+    })
+    .then(renderResult)
+    .catch((err) => console.error(err))
 }

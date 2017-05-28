@@ -8,13 +8,13 @@ const models = require('./models')
 const pollController = require('./controllers/poll')
 const choiceController = require('./controllers/choice')
 const ensureAuthenticated = require('./util/ensureAuthenticated')
+import renderPollData from './util/renderPollData'
 
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import renderFullPage from './util/renderFullPage'
 import App from '../app'
-import buildDataset from './util/buildDataset'
 
 const app = Express()
 const port = process.env.PORT || 3750
@@ -42,7 +42,8 @@ app.get('/auth/twitter',
 )
 
 app.post('/api/poll', ensureAuthenticated, pollController.postPoll)
-app.get('/api/poll', pollController.getPoll)
+app.get('/api/poll/:pollId', pollController.getPoll)
+app.get('/api/polls', pollController.getPolls)
 app.post('/api/choice/:pollId', choiceController.postChoice)
 
 app.get('/*', (req, res) => {
@@ -56,7 +57,7 @@ app.get('/*', (req, res) => {
   }
 
   const renderResult = (polls) => {
-    polls = polls.map( buildDataset(req) )
+    polls = polls.map( renderPollData(req) )
     console.log(polls)
 
     state.polls = polls

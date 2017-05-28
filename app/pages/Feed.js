@@ -16,6 +16,9 @@ class Feed extends Component {
       .post(url)
       .send(choice)
       .end((err, resp) => {
+        if (err) {
+          return console.error(err)
+        }
         if (resp.body.success) {
           console.log(success)
         }
