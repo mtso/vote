@@ -10,6 +10,7 @@ class MyPollsContainer extends Component {
     this.state = {
       polls: [],
     }
+    this.onDelete = this.onDelete.bind(this)
   }
   componentDidMount() {
     request
@@ -23,6 +24,13 @@ class MyPollsContainer extends Component {
         })
       })
   }
+  onDelete(index) {
+    return (_) => {
+      this.setState({
+        polls: this.state.polls.filter((_, i) => index !== i),
+      })
+    }
+  }
   render() {
     if (!account.isLoggedIn) {
       return <Redirect to='/' />
@@ -30,8 +38,13 @@ class MyPollsContainer extends Component {
     return (
       <div>
         { 
-          this.state.polls.map((poll) => 
-            <Donut {...poll} />
+          this.state.polls.map((poll, i) => 
+            <Donut
+              key={poll.id}
+              {...poll}
+              canDelete={true}
+              onDelete={this.onDelete(i)}
+            />
           ) 
         }
       </div>

@@ -81,3 +81,15 @@ module.exports.getMyPolls = (req, res, next) => {
   ))
   .catch((err) => next(err))
 }
+
+module.exports.deletePoll = (req, res, next) => {
+  Poll.destroy({
+    where: { id: req.params.id }
+  })
+  .then(() => {
+    res.json({
+      success: true,
+    })
+  })
+  .catch((err) => next(err))
+}

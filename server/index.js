@@ -29,6 +29,7 @@ app.get('/auth/twitter/callback', passportTwitterController.callback(passport))
 app.get('/auth/twitter', passport.authenticate('twitter'))
 
 app.post('/api/poll', ensureAuthenticated, pollController.postPoll)
+app.delete('/api/poll/:id', ensureAuthenticated, pollController.deletePoll)
 app.get('/api/poll/:pollId', pollController.getPoll)
 app.get('/api/polls', pollController.getPolls)
 app.get('/api/mypolls', ensureAuthenticated, pollController.getMyPolls)
