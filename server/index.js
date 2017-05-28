@@ -1,7 +1,6 @@
 import path from 'path'
 import Express from 'express'
 import bodyParser from 'body-parser'
-import cors from 'cors'
 import session from 'express-session'
 import passport from './auth'
 import appController from './controllers/app'
